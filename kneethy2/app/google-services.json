@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "674310347927",
+    "project_id": "kneethy2",
+    "storage_bucket": "kneethy2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:674310347927:android:8d1b18dac78330b1149dd2",
+        "android_client_info": {
+          "package_name": "com.example.kneethy2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "674310347927-a7umsfcqa1a4b2ekh9ebj9254ds5kv1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj3XkjL3aIlxuO3X4AxakN8oOO9om-tSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "674310347927-a7umsfcqa1a4b2ekh9ebj9254ds5kv1p.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
