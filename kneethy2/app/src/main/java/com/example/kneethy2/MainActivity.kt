@@ -20,8 +20,8 @@ import com.google.firebase.ktx.Firebase
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 
-
-
+const val EMAIL = "com.example.myfirstapp.EMAIL"
+const val DISPLAYNAME = "com.example.myfirstapp.DISPLAYNAME"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -102,6 +102,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        return
+        if (user != null) {
+            var email = "unindentified"
+            var displayName = "unindentified"
+            user.email?.let {
+                Log.d("REDIRECT", it)
+                email = it
+            }
+            user.displayName?.let {
+                Log.d("REDIRECT", it)
+                displayName = it
+            }
+            val intent = Intent(this, navigation::class.java).apply{
+                putExtra(EMAIL, email)
+                putExtra(DISPLAYNAME, displayName)
+            }
+            startActivity(intent)
+        }
     }
 }
