@@ -15,6 +15,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kneethy2.databinding.ActivityNavigationBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class navigation : AppCompatActivity() {
 
@@ -31,7 +33,8 @@ class navigation : AppCompatActivity() {
         setSupportActionBar(binding.appBarNavigation.toolbar)
 
         binding.appBarNavigation.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Firebase.auth.signOut()
+            Snackbar.make(view, "Signed out", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout

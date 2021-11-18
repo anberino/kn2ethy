@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("96637076107-imum630iusndu93pcej9s6600tiponje.apps.googleusercontent.com")
+            .requestIdToken("674310347927-a7umsfcqa1a4b2ekh9ebj9254ds5kv1p.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
@@ -118,6 +119,9 @@ class MainActivity : AppCompatActivity() {
                 putExtra(DISPLAYNAME, displayName)
             }
             startActivity(intent)
+        } else {
+//            val intent = Intent(this, MainActivity::class.java).apply {}
+//            startActivity(intent)
         }
     }
 }
