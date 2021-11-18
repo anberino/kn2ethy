@@ -1,11 +1,13 @@
 package com.example.kneethy2
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 
@@ -22,10 +24,10 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnTokenCanceledListener
 
 import androidx.annotation.NonNull
+import com.google.android.gms.common.SignInButton
 
 import com.google.android.gms.tasks.CancellationToken
-
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -47,6 +49,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        val button: FloatingActionButton = findViewById(R.id.quit)
+        button.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java).apply{}
+            startActivity(intent)
+        }
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
