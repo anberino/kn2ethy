@@ -27,8 +27,10 @@ const val DISPLAYNAME = "com.example.myfirstapp.DISPLAYNAME"
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
+    private var isInHere : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isInHere = true
         Log.d("ONCREATE","ON CREATE START")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -78,13 +80,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        isInHere = false
+    }
+
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
-
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -120,8 +126,10 @@ class MainActivity : AppCompatActivity() {
             }
             startActivity(intent)
         } else {
-//            val intent = Intent(this, MainActivity::class.java).apply {}
-//            startActivity(intent)
+            if (!isInHere) {
+                val intent = Intent(this, MainActivity::class.java).apply {}
+                startActivity(intent)
+            }
         }
     }
 }
