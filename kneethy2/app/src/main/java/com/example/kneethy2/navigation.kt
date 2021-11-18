@@ -2,6 +2,7 @@ package com.example.kneethy2
 
 import android.annotation.SuppressLint
 import android.content.ClipData
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
@@ -76,6 +77,8 @@ class navigation : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_settings -> {
                 Firebase.auth.signOut()
+                val intent = Intent(this, MainActivity::class.java).apply {}
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -126,10 +126,6 @@ class MainActivity : AppCompatActivity() {
             }
             startActivity(intent)
         } else {
-            if (!isInHere) {
-                val intent = Intent(this, MainActivity::class.java).apply {}
-                startActivity(intent)
-            }
         }
     }
 }
