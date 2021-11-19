@@ -17,6 +17,11 @@ import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
@@ -28,7 +33,6 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
-    private var storage = Firebase.storage("gs://kneethy2.appspot.com")
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -50,7 +54,7 @@ class HomeFragment : Fragment() {
             textView.text = it
         })
 
-        val journal: String = loadDiaryFromCloud()
+//        val journal: String = loadDiaryFromCloud()
 
         val button: MaterialButton = root.findViewById(R.id.save_button)
         button.setOnClickListener {
@@ -71,18 +75,24 @@ class HomeFragment : Fragment() {
         val txt: String = newDiaryEntry.text.toString()
         Log.d("TXT", txt)
 
+        val database = Firebase.database
+        val myRef = database.getReference("message")
+
+        myRef.setValue(txt)
+
+        // Read from the database
+        myRef.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val value = snapshot.getValue<String>()
+                Log.d("PEDRO", "Value is: $value")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("PEDRO", "Failed to read value.", error.toException())
+            }
+
+        })
+
     }
 
-    private fun loadDiaryFromCloud() : String {
-        val storageRef = storage.reference
-        val curDiaryRef = storageRef.child("diary.txt")
-        var diary = ""
-        curDiaryRef.getBytes(Long.MAX_VALUE).addOnSuccessListener {
-            diary = it.toString(Charset.defaultCharset())
-            Log.d("SUCCESS", diary)
-        }.addOnFailureListener {
-            Log.d("FAILURE", "cocô")
-        }
-        return diary
-    }
 }

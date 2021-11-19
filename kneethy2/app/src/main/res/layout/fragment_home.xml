@@ -24,31 +24,28 @@
 
     <EditText
         android:id="@+id/editTextTextMultiLine"
-        android:layout_width="0dp"
+        android:layout_width="210dp"
         android:layout_height="52dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="86dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:gravity="start|top"
         android:hint="How is your day going?"
         android:inputType="text"
         android:singleLine="false"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_home"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
     <Button
         android:id="@+id/save_button"
-        android:layout_width="98dp"
-        android:layout_height="45dp"
+        android:layout_width="104dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Save"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editTextTextMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toEndOf="@+id/editTextTextMultiLine"
-        app:layout_constraintTop_toBottomOf="@+id/text_home"
-        app:layout_constraintVertical_bias="0.167" />
+        app:layout_constraintStart_toEndOf="@+id/editTextTextMultiLine" />
 
     <TextView
         android:id="@+id/textView2"
