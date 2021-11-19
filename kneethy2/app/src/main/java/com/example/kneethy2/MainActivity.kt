@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -20,14 +21,16 @@ import com.google.firebase.ktx.Firebase
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 
-
-
+const val EMAIL = "com.example.myfirstapp.EMAIL"
+const val DISPLAYNAME = "com.example.myfirstapp.DISPLAYNAME"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient : GoogleSignInClient
+    private var isInHere : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        isInHere = true
         Log.d("ONCREATE","ON CREATE START")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -35,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("96637076107-imum630iusndu93pcej9s6600tiponje.apps.googleusercontent.com")
+            .requestIdToken("674310347927-a7umsfcqa1a4b2ekh9ebj9254ds5kv1p.apps.googleusercontent.com")
             .requestEmail()
             .build()
 
@@ -77,13 +80,17 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        isInHere = false
+    }
+
     override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         updateUI(currentUser)
     }
-
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -102,6 +109,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        return
+        if (user != null) {
+            var email = "unindentified"
+            var displayName = "unindentified"
+            user.email?.let {
+                Log.d("REDIRECT", it)
+                email = it
+            }
+            user.displayName?.let {
+                Log.d("REDIRECT", it)
+                displayName = it
+            }
+            val intent = Intent(this, navigation::class.java).apply{
+                putExtra(EMAIL, email)
+                putExtra(DISPLAYNAME, displayName)
+            }
+            startActivity(intent)
+        } else {
+        }
     }
 }
