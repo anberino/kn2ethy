@@ -33,6 +33,7 @@ class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
+    private var journalText : String = "nada aqui ainda uwu"
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -54,7 +55,19 @@ class HomeFragment : Fragment() {
             textView.text = it
         })
 
-//        val journal: String = loadDiaryFromCloud()
+        val database = Firebase.database
+        val myRef = database.getReference("note")
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val value = snapshot.getValue<String>()
+                meuBilau("$value", root)
+                Log.d("PEDRO", "Value is: $value")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w("PEDRO", "Failed to read value.", error.toException())
+            }
+        })
 
         val button: MaterialButton = root.findViewById(R.id.save_button)
         button.setOnClickListener {
@@ -70,29 +83,20 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+
     private fun saveMyText(v: View) {
         val newDiaryEntry: EditText = v.findViewById(R.id.editTextTextMultiLine)
         val txt: String = newDiaryEntry.text.toString()
         Log.d("TXT", txt)
-
         val database = Firebase.database
-        val myRef = database.getReference("message")
-
-        myRef.setValue(txt)
-
-        // Read from the database
-        myRef.addValueEventListener(object: ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                val value = snapshot.getValue<String>()
-                Log.d("PEDRO", "Value is: $value")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.w("PEDRO", "Failed to read value.", error.toException())
-            }
-
-        })
-
+        var databaseRef = database.getReference("note")
+        databaseRef.setValue(txt)
     }
 
+    private fun meuBilau(s: String, v: View) {
+        Log.d("MEU", "BILAU")
+        val textView = v.findViewById<TextView>(R.id.textView2).apply {
+            text = s
+        }
+    }
 }
