@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">kneethy2</string>
+    <string name="app_name">K N E E T H Y  2</string>
     <string name="server_client_id">96637076107-imum630iusndu93pcej9s6600tiponje.apps.googleusercontent.com</string>
     <string name="title_activity_navigation">navigation</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -7,10 +7,11 @@
     <string name="nav_header_title">Android Studio</string>
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Logout</string>
 
-    <string name="menu_home">My Kneethy</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="home_test">blop</string>
+    <string name="menu_home">Diary</string>
+    <string name="menu_gallery">Temperature</string>
+    <string name="menu_slideshow">Maps</string>
+    <string name="title_activity_maps">MapsActivity</string>
+    <string name="map_button">Go to Map</string>
 </resources>

@@ -71,7 +71,7 @@ class GalleryFragment : Fragment() {
                     temperature = weatherResponse.main.temp.toString()
 
                     root.findViewById<TextView>(R.id.temperature_display)?.apply {
-                        text = temperature
+                        text = temperature + "°C"
                     }
                 }
             }
