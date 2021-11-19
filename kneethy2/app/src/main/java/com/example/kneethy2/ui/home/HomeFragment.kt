@@ -14,14 +14,21 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.kneethy2.R
 import com.example.kneethy2.databinding.FragmentHomeBinding
 import com.google.android.gms.common.SignInButton
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import com.google.android.material.button.MaterialButton
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import java.io.File
 import java.lang.reflect.MalformedParameterizedTypeException
+import java.nio.charset.Charset
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
     private var _binding: FragmentHomeBinding? = null
+    private var storage = Firebase.storage("gs://kneethy2.appspot.com")
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -43,12 +50,11 @@ class HomeFragment : Fragment() {
             textView.text = it
         })
 
+        val journal: String = loadDiaryFromCloud()
+
         val button: MaterialButton = root.findViewById(R.id.save_button)
         button.setOnClickListener {
             Log.d("BUTTON","Button Clicked")
-            val newDiaryEntry: EditText = root.findViewById(R.id.editTextTextMultiLine)
-            val txt: String = newDiaryEntry.getText().toString()
-            Log.d("TXT", txt)
             saveMyText(root)
         }
 
@@ -60,20 +66,23 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    fun saveMyText(v: View) {
-        val filename = "kneethy-entries.json"
-//        val appSpecificExternalDir = File(context?.getExternalFilesDir(null), filename)
-//        val pastNotes = appSpecificExternalDir.readText()
+    private fun saveMyText(v: View) {
+        val newDiaryEntry: EditText = v.findViewById(R.id.editTextTextMultiLine)
+        val txt: String = newDiaryEntry.text.toString()
+        Log.d("TXT", txt)
+
     }
 
-
-    fun isExternalStorageWritable(): Boolean {
-        return Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED
-    }
-
-    // Checks if a volume containing external storage is available to at least read.
-    fun isExternalStorageReadable(): Boolean {
-        return Environment.getExternalStorageState() in
-                setOf(Environment.MEDIA_MOUNTED, Environment.MEDIA_MOUNTED_READ_ONLY)
+    private fun loadDiaryFromCloud() : String {
+        val storageRef = storage.reference
+        val curDiaryRef = storageRef.child("diary.txt")
+        var diary = ""
+        curDiaryRef.getBytes(Long.MAX_VALUE).addOnSuccessListener {
+            diary = it.toString(Charset.defaultCharset())
+            Log.d("SUCCESS", diary)
+        }.addOnFailureListener {
+            Log.d("FAILURE", "cocô")
+        }
+        return diary
     }
 }
