@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kneethy2.R
+import com.example.kneethy2.TEMPERATURE
 import com.example.kneethy2.WeatherResponse
 import com.example.kneethy2.databinding.FragmentGalleryBinding
 import retrofit2.Callback
@@ -72,6 +73,7 @@ class GalleryFragment : Fragment() {
 
                     root.findViewById<TextView>(R.id.temperature_display)?.apply {
                         text = temperature + "°C"
+                        TEMPERATURE = temperature + "°C"
                     }
                 }
             }
@@ -81,7 +83,7 @@ class GalleryFragment : Fragment() {
         })
 
         root.findViewById<TextView>(R.id.text_gallery)?.apply {
-            text = "Temperature"
+            text = "🎵 Your weather will remain 🎵"
         }
 
         return root

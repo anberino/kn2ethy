@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.kneethy2.R
+import com.example.kneethy2.TEMPERATURE
 import com.example.kneethy2.databinding.FragmentHomeBinding
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.tasks.OnSuccessListener
@@ -60,7 +61,7 @@ class HomeFragment : Fragment() {
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val value = snapshot.getValue<String>()
-                meuBilau("$value", root)
+                updateNote("$value", root)
                 Log.d("PEDRO", "Value is: $value")
             }
 
@@ -90,11 +91,11 @@ class HomeFragment : Fragment() {
         Log.d("TXT", txt)
         val database = Firebase.database
         var databaseRef = database.getReference("note")
-        databaseRef.setValue(txt)
+        val note = "$txt ($TEMPERATURE)"
+        databaseRef.setValue(note)
     }
 
-    private fun meuBilau(s: String, v: View) {
-        Log.d("MEU", "BILAU")
+    private fun updateNote(s: String, v: View) {
         val textView = v.findViewById<TextView>(R.id.textView2).apply {
             text = s
         }

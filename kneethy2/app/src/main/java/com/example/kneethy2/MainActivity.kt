@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 
 const val EMAIL = "com.example.myfirstapp.EMAIL"
 const val DISPLAYNAME = "com.example.myfirstapp.DISPLAYNAME"
+var TEMPERATURE = "no data"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth

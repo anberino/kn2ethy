@@ -34,7 +34,8 @@
         android:hint="How is your day going?"
         android:inputType="text"
         android:singleLine="false"
-        android:textColorHint="#9A9A9A"
+        android:textColor="#979797"
+        android:textColorHint="#979797"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_home" />
 
