@@ -9,7 +9,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Logout</string>
 
-    <string name="menu_home">Diary</string>
+    <string name="menu_home">Important Note</string>
     <string name="menu_gallery">Temperature</string>
     <string name="menu_slideshow">Maps</string>
     <string name="title_activity_maps">MapsActivity</string>
